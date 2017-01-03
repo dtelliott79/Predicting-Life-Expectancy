@@ -1,0 +1,55 @@
+Predicting Life Expectancy from World Bank Population Health Measures. 
+========================================================
+author: David T Elliott
+date: January 1, 2017
+autosize: true
+
+Data Collection
+========================================================
+
+Data were obtained from World Bank Health Nutrition and Population Statistics: <http://databank.worldbank.org/data/reports.aspx?source=health-nutrition-and-population-statistics&Type=TABLE&preview=on#advancedDownloadOptions>.
+
+Analysis aimed to:
+- Identify an important defining population characteristic (Life Expectancy)
+- Identify other population characteristics to be used as predictors (covariables)
+- Fit a model to predict Life Expectancy using these covariables
+- Use the model to predict Life Expectancy based on user input
+
+Data Pre-processing Code (Compressed)
+========================================================
+<font size="6">
+```{r}
+library(tidyr); library(dplyr); library(plotly); df <- read.csv("Data.csv", header = TRUE)
+df <- df %>% gather(key = Year, value = value, 5:60, na.rm = TRUE) %>% rename(Measure = Series.Name, Measure.Code = Series.Code) %>% spread(key = Measure, value = value, fill = NA, drop = TRUE, sep = NULL) %>% select(-Measure.Code, -Country.Code) %>% group_by(Country.Name, Year) %>% summarise_each(funs(sum(., na.rm=TRUE)))
+df[df==0] <- NA; df$Year <- gsub("^*X([^.]+).*", "\\1", df$Year); df <- df[!is.na(df$`Life expectancy at birth, total (years)`),]; df <- df[, colMeans(is.na(df)) < .5]; colnames(df)[3] <- "Adol.Fert.Rt"; colnames(df)[4] <- "Age.Dep.Ratio.Old"; colnames(df)[5] <- "Age.Dep.Ratio.Yng"; colnames(df)[6] <- "Birth.Rt"; colnames(df)[7] <- "Fert.Rt"; colnames(df)[8] <- "GNI.US.Dollars"; colnames(df)[9] <- "DPT.Immu"; colnames(df)[10] <- "Measl.Immu"; colnames(df)[11] <- "Pol3.Immu"; colnames(df)[12] <- "Life.Exp"; colnames(df)[13] <- "Pop.Growth"; colnames(df)[14] <- "Perc.Female"; colnames(df)[15] <- "Perc.Male"; colnames(df)[16] <- "Perc.Rural"; colnames(df)[17] <- "Rural.PopGrowth"; colnames(df)[18] <- "Prim.Sch.Perc"; colnames(df)[19] <- "Second.Sch.Perc"; colnames(df)[20] <- "Perc.Urban"; colnames(df)[21] <- "Urban.Pop.Growth"
+```
+</font>
+
+Model Fit
+========================================================
+<font size="6">
+```{r, echo=FALSE}
+df2 <- df[complete.cases(df),-c(1, 2)]
+model <- lm(df2$Life.Exp ~ df2$Adol.Fert.Rt + df2$Birth.Rt + df2$Pol3.Immu + df2$Second.Sch.Perc + df2$Urban.Pop.Growth)
+summary(model)[1]
+summary(model)[8]
+summary(model)[4]
+```
+</font>
+
+User Instructions
+========================================================
+<font size="6">
+- Using the sliders, select desired values for given characteristics
+- Resulting Life Expectancy prediction is shown by orange bar, overlayed on mean Life Expectancy for each country, similar to the example plot shown below
+</font>
+
+```{r, echo=FALSE, out.width = '450px', dpi=200}
+input <- data.frame("AFR"=60, "BR"=25, "POL"=80, "SEC"=70, "UPG"=2)
+PredLifeExp <- (69.113829 - 0.021301*input$AFR - 0.428352*input$BR + 0.026001*input$POL + 0.103180*input$SEC + 0.580104*input$UPG)
+NatMeans <- aggregate(Life.Exp ~ Country.Name, data = df, mean)
+NatMeans$Rank <- rank(NatMeans$Life.Exp)
+FindRank <- mean(NatMeans$Rank[round(NatMeans$Life.Exp)==round(PredLifeExp)])
+barplot(sort(NatMeans$Life.Exp), xlab = "Approximate Worldwide Rank", ylab = "Life Expectancy (Years)", col = "light blue", border=TRUE)
+segments(x0=FindRank, y0=0, x1=FindRank, y1=PredLifeExp, col = "orange")
+```
