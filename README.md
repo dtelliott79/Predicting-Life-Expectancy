@@ -1,5 +1,5 @@
 # Predicting Life Expectancy
-A simple exercise in data science, predicting Life Expectancy from World Bank Population Health Data
+A simple exercise in end-to-end data science, predicting Life Expectancy from World Bank Population Health Data
 
 This repository contains the files necessary to reproduce the analysis. For finished products, see:
 - http://rpubs.com/delliott79/239502
