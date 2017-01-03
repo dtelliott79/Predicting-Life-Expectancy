@@ -2,8 +2,8 @@
 A simple exercise in data science, predicting Life Expectancy from World Bank Population Health Data
 
 This repository contains the files necessary to reproduce the analysis. For finished products, see:
-http://rpubs.com/delliott79/239502
-http://dtelliott79.shinyapps.io/DevelopingDataProducts-PredictLifeExpectancy/
+- http://rpubs.com/delliott79/239502
+- http://dtelliott79.shinyapps.io/DevelopingDataProducts-PredictLifeExpectancy/
 
 
 Predicting Life Expectancy from World Bank Population Health Measures. 
