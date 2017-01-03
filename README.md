@@ -1,4 +1,4 @@
-# PredictingLifeExpectancy
+# Predicting Life Expectancy
 A simple exercise in data science, predicting Life Expectancy from World Bank Population Health Data
 
 This repository contains the files necessary to reproduce the analysis. For finished products, see:
