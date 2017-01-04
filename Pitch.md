@@ -7,13 +7,20 @@ autosize: true
 Data Collection
 ========================================================
 
-Data were obtained from World Bank Health Nutrition and Population Statistics: <http://databank.worldbank.org/data/reports.aspx?source=health-nutrition-and-population-statistics&Type=TABLE&preview=on#advancedDownloadOptions>.
+Data were obtained from [World Bank Population Statistics](http://databank.worldbank.org/data/reports.aspx?source=health-nutrition-and-population-statistics&Type=TABLE&preview=on#advancedDownloadOptions):
 
 Analysis aimed to:
-- Identify an important defining population characteristic (Life Expectancy)
-- Identify other population characteristics to be used as predictors (covariables)
-- Fit a model to predict Life Expectancy using these covariables
-- Use the model to predict Life Expectancy based on user input
+
+1. Identify a defining population characteristic (Life Expectancy)
+
+2. Identify population characteristics for use as predictors (covariables)
+
+3. Fit a model to predict Life Expectancy using these covariables
+
+4. Use the model to predict Life Expectancy based on user input in a web-based Application
+
+
+The raw dataset and all analysis related files are available [here](https://github.com/dtelliott79/Predicting-Life-Expectancy).
 
 Data Pre-processing Code (Compressed)
 ========================================================
@@ -55,9 +62,12 @@ df2$Urban.Pop.Growth  0.58010372 0.050130109  11.571962  1.906093e-30
 
 User Instructions
 ========================================================
-<font size="6">
-- Using the sliders, select desired values for given characteristics
-- Resulting Life Expectancy prediction is shown by orange bar, overlayed on mean Life Expectancy for each country, similar to the example plot shown below
+<font size="5">
+
+- Use the sliders to select values for population characteristics (model covariables)
+- The plot shows the model Life Expectancy prediction (orange bar) and mean Life Expectancy by country (blue bars) ~ see example plot below
+- In the Application, more information is available by hovering over plotted data points
+
 </font>
 
-<img src="Pitch-figure/unnamed-chunk-3-1.png" title="plot of chunk unnamed-chunk-3" alt="plot of chunk unnamed-chunk-3" width="450px" />
+<img src="Pitch-figure/unnamed-chunk-3-1.png" title="plot of chunk unnamed-chunk-3" alt="plot of chunk unnamed-chunk-3" width="400px" />

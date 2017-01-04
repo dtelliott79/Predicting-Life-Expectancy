@@ -26,7 +26,7 @@ shinyServer(function(input, output) {
                  type = 'bar', name = 'National Mean') %>%
             add_trace(x = FindRank, y = PredLifeExp, 
                       name = 'Prediction', text = "") %>%
-            layout(xaxis = list(title = "Approximate Worldwide Rank"), 
+            layout(xaxis = list(title = "Rank Among Nations Plotted"), 
                        yaxis = list(title = "Life Expectancy (Years)"))
   })
 })

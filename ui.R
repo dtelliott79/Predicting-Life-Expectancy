@@ -6,14 +6,15 @@ shinyUI(fluidPage(
   
   sidebarLayout(
     sidebarPanel(
-       h3("User Entered Values"),  
+       h3("User Entered Values"),
+       h3("(Model Covariables)"),
        sliderInput("AFR",
-                   "Adolescent Fertility Rate (number of live births by women ages 15-19 per 1,000 population per year):",
+                   "Adolescent (ages 15-19) Fertility Rate (# births/1,000 population/year):",
                    min = 2,
                    max = 230,
                    value = 60),
        sliderInput("BR",
-                   "Birth Rate (number of live births per 1,000 population per year):",
+                   "Birth Rate (# births/1,000 population/year):",
                    min = 8,
                    max = 55,
                    value = 25),
@@ -23,9 +24,9 @@ shinyUI(fluidPage(
                    max = 99,
                    value = 80),
        sliderInput("SEC",
-                   "% of children enrolled in secondary school to children secondary school aged:",
-                   min = 3,
-                   max = 160,
+                   "% of secondary school aged children enrolled:",
+                   min = 1,
+                   max = 99,
                    value = 70),
        sliderInput("UPG",
                    "Urban population growth (annual %):",
@@ -34,11 +35,14 @@ shinyUI(fluidPage(
                    value = 2)
     ),
     mainPanel(
-       h3("Predicted Life Expectancy Plotted Against National Averages Worldwide"),
-       plotlyOutput("distPlot"),
-       h4("- Using the sliders, select desired values for each given characteristic."),
-       h4("- The resulting Life Expectancy prediction is shown as an orange bar overlayed on means of Life Expectancy for each country."),
-       h4("- More information is available by hovering over the data points.")
+       h3("Model Predicted Life Expectancy (Orange Bar)"),
+       h3("Plotted Along with National Averages of Life Expectancy (Blue Bars)"),
+       h3("Instructions for Use:"),
+       h4("- Using the sliders at left, select desired values for each given population characteristic."),
+       h4("- Life Expectancy prediction is shown as an orange bar."),
+       h4("- Means of Life Expectancy for each country are shown as blue bars."),
+       h4("- More information is available by hovering over the data points."),
+       plotlyOutput("distPlot")
     )
   )
 ))
